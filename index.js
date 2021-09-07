@@ -6,7 +6,7 @@ const token = '1923844013:AAEelvggK8VVzG7cgp-dE2-6a_u2lYjRKh8'
 const bot = new TelegramApi(token, {polling: true})
 
 const chats = {}
-
+// stickers pack https://tlgrm.ru/stickers/pappy_fox
 
 const startGame = async (chatId) => {
     await bot.sendMessage(chatId, `Сейчас я загадаю цифру от 0 до 9, а ты должен ее угадать!`);
@@ -18,7 +18,7 @@ const startGame = async (chatId) => {
 const start = () => {
     bot.setMyCommands([
         {command: '/start', description: 'Начальное приветствие'},
-        {command: '/info', description: 'Получить информацию о пользователе'},
+        {command: '/info', description: 'Получить информацию о авторе'},
         {command: '/game', description: 'Игра угадай цифру'},
     ])
 
@@ -27,16 +27,18 @@ const start = () => {
         const chatId = msg.chat.id;
 
         if (text === '/start') {
-            await bot.sendSticker(chatId, 'https://tlgrm.ru/_/stickers/ea5/382/ea53826d-c192-376a-b766-e5abc535f1c9/7.webp')
-            return bot.sendMessage(chatId, `Добро пожаловать ${msg.from.first_name} ${msg.from.last_name}, телеграм бот Ualikhanov University`);
+            await bot.sendSticker(chatId, 'https://tlgrm.ru/_/stickers/5ba/fb7/5bafb75c-6bee-39e0-a4f3-a23e523feded/1.webp')
+            await bot.sendMessage(chatId, `Привет ${msg.from.first_name} ${msg.from.last_name}!`);
+            return bot.sendMessage(chatId, `Добро пожаловать в телеграм бот Ualikhanov University`);
         }
         if (text === '/info') {
-            return bot.sendMessage(chatId, `Тебя зовут ${msg.from.first_name} ${msg.from.last_name}`);
+            return bot.sendMessage(chatId, `Автор COOPWORK Ruslan Svetlichnyy`);
         }
         if (text === '/game') {
             return startGame(chatId);
         }
-        return bot.sendMessage(chatId, 'Я тебя не понимаю, попробуй еще раз!)');
+        await bot.sendSticker(chatId, 'https://tlgrm.ru/_/stickers/5ba/fb7/5bafb75c-6bee-39e0-a4f3-a23e523feded/18.webp')
+        return bot.sendMessage(chatId, 'Не могу ничего найти по такому запросу, попробуй ещё');
 
     })
 
